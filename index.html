@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script defer src="js/sript.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+                <div class="col text-center">
+                    <p style="margin-bottom: 5px; margin-top: 20px; font-size: large;"><strong>Test Track Disney - Création de voiture</strong> </p>
+                    <p>Informations de base</p>
+                </div>
+        </div>
+    </header>
+
+    <main>
+        <form class="row g-3 needs-validation" action="form-2-caractéristiques.html" id="form1" novalidate>
+            <div class="col-md-6" id="zonePrenom">
+              <label for="validationCustom01" class="form-label">Prénom</label>
+              <input type="text" class="form-control" id="validationCustom01" value="" required>
+            
+            </div>
+            <div class="col-md-6" id="zoneNom">
+              <label for="validationCustom02" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="validationCustom02" value="" required>
+             
+            </div>
+            
+            <div class="col-md-6" id="zoneType">
+              <label for="validationCustom03" class="form-label">Type de véhicule</label>
+              <select class="form-select" id="validationCustom03" required>
+                <option selected disabled value="">...</option>
+                <option value="1">Écologique</option>
+                <option value="2">Sport</option>
+                <option value="3">VUS</option>
+              </select>
+            </div>
+
+            <div class="col-md-3" id="zoneCouleur">
+              <label for="validationCustom04" class="form-label">Couleurs</label>
+              <select class="form-select" id="validationCustom04" required>
+                <option selected disabled value="">Choose...</option>
+                <option>...</option>
+              </select>
+            </div>
+
+            <div class="col-md-3">
+              <label for="validationCustom05" class="form-label">Grosseur des roues</label>
+              <input type="range" class="form-range" min="15" max="50" step="0.5" id="customRange05">
+              
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Enregistrer et continuer vers Étapes 2</button>
+            </div>
+          </form>
+    </main>
+    
+</body>
+</html>
