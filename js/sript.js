@@ -86,7 +86,7 @@ function remplirCouleur(){
 //Verififie si un champs du formulaire est vide, si oui elle le mets en rouge et affiche un message au client
 function validerFormulaire(e){
     
-    if(prenom.value == ""){
+    if(prenom.value === ""){
         blnerreur = true;
         prenom.style.borderColor = "red"
         const paragrapheErreur = document.createElement('p');
@@ -96,7 +96,7 @@ function validerFormulaire(e){
         champPrenom.append(paragrapheErreur);
        
     }
-    if(nom.value == ""){
+    if(nom.value === ""){
         blnerreur = true;
         nom.style.borderColor = "red"
         const paragrapheErreurNom = document.createElement('p');
@@ -107,7 +107,7 @@ function validerFormulaire(e){
      
     }
 
-    if(typeVehicule.value == ""){
+    if(typeVehicule.value === ""){
         blnerreur = true;
         typeVehicule.style.borderColor = "red"
         const paragrapheErreurType = document.createElement('p');
@@ -118,7 +118,7 @@ function validerFormulaire(e){
        
     }
 
-    if(couleur.value == ""){
+    if(couleur.value === ""){
         blnerreur = true;
         couleur.style.borderColor = "red"
         const paragrapheErreurCouleur = document.createElement('p');
@@ -129,7 +129,7 @@ function validerFormulaire(e){
       
     }
 
-    if(blnerreur == true){
+    if(blnerreur === true){
         e.preventDefault();
     }
   
@@ -137,12 +137,15 @@ function validerFormulaire(e){
 
 //Verifie si un champs correctement remplir, si oui elle mets le champs en vert pour indiquer qu'il est bien remplir
 function verifierCorrection(e){
-    if(e.target.value != ""){
-        blnerreur = false;
-        e.target.style.borderColor = "green"
-        if(e.target.parentNode.querySelector('p')){
-            const refParagrapheSuivant = e.target.parentNode.querySelector('p')
-            refParagrapheSuivant.remove() 
+    //Si l'élément est entourer au rouge
+    if(e.target.style.borderColor === "red"){
+        if(e.target.value != ""){
+            blnerreur = false;
+            e.target.style.borderColor = "green"
+            if(e.target.parentNode.querySelector('p')){
+                const refParagrapheSuivant = e.target.parentNode.querySelector('p')
+                refParagrapheSuivant.remove() 
+            }
         }
     }
 }
