@@ -6,40 +6,49 @@ const REGEX_NOMBRE = /^\d+$/;
 let validation = true;
 let nombreDeSoumission = 0;
 const typeVehicule = {
-    ecologique: ['Vitres électriques', 'Filets dans le coffre', 'Batterie longue durée'],
-    sport: ['Toit ouvrant', 'Mags', 'Vitres teintées', 'Système de son Bose', 'Aileron'],
-    vus: ['Coffre électrique', 'Porte électrique']
-}
+  ecologique: [
+    "Vitres électriques",
+    "Filets dans le coffre",
+    "Batterie longue durée",
+  ],
+  sport: [
+    "Toit ouvrant",
+    "Mags",
+    "Vitres teintées",
+    "Système de son Bose",
+    "Aileron",
+  ],
+  vus: ["Coffre électrique", "Porte électrique"],
+};
 let checkboxList = document.getElementById("checkbox-list");
 const OPTION_MIN = 2;
 const OPTION_MAX = 3;
 
-
-
-
 formulaire.addEventListener("submit", validerFormulaire);
-creerListeOptions()
-
+creerListeOptions();
 
 // Appeler lors de la soumission du formulaire
 function validerFormulaire(e) {
   let validation = true;
+
+  // verifie que la valeur de chaque caractéristique est un nombre
   for (const caracteristique of champsCaracteristiques) {
-    validation = validation && REGEX_NOMBRE.test(caracteristique.value);
+    validation = validation && verifierValeurCarac(caracteristique);
   }
 
-  let options = document.querySelectorAll('input[type=checkbox]');
-  let nbOptionCoche = 0; 
-  for(let checkbox of options ){
-    if(checkbox.checked){
+  // compte le nombre de checkbox coché
+  let options = document.querySelectorAll("input[type=checkbox]");
+  let nbOptionCoche = 0;
+  for (let checkbox of options) {
+    if (checkbox.checked) {
       nbOptionCoche += 1;
     }
   }
 
   // Verification du nombre d'option coché
-  if(nbOptionCoche >= OPTION_MIN && nbOptionCoche <= OPTION_MAX){
+  if (nbOptionCoche >= OPTION_MIN && nbOptionCoche <= OPTION_MAX) {
     validation = validation && true;
-  } else{
+  } else {
     validation = validation && false;
   }
 
@@ -48,25 +57,25 @@ function validerFormulaire(e) {
 
   // valeur saisir incorrect, la soumission est bloqué
   if (validation) {
-    let objVehicule = {}
+    let objVehicule = {};
 
     // caractéristiques
     for (const caracteristique of champsCaracteristiques) {
-      objVehicule[caracteristique.name] = caracteristique.value
+      objVehicule[caracteristique.name] = caracteristique.value;
     }
 
     // Options
-    objVehicule['option'] = []
+    objVehicule["option"] = [];
     for (const checkbox of options) {
-      if(checkbox.checked){
-        objVehicule['option'].push(checkbox.value)
+      if (checkbox.checked) {
+        objVehicule["option"].push(checkbox.value);
       }
     }
 
     // stocker l'objet dans le localstorage
     let objVehiculeJSON = JSON.stringify(objVehicule);
-    localStorage.setItem('vehicule', objVehiculeJSON);
-  }else{
+    localStorage.setItem("vehicule", objVehiculeJSON);
+  } else {
     e.preventDefault();
 
     // Les event sont ajouté lors de la premiere soumission
@@ -76,12 +85,14 @@ function validerFormulaire(e) {
         caracteristique.addEventListener("input", validerChamp);
       }
 
-      // Verifie le nombre d'option cochés
-      verifierCheckbox()
+      // Marque en rouge le text des checkbox
+      verifierCheckbox();
+
+      // Ajoute une evenement a chaque checkbox
       for (const checkbox of options) {
         checkbox.addEventListener("change", verifierCheckbox);
       }
-    } 
+    }
   }
 }
 
@@ -99,7 +110,7 @@ function verifierValeurCarac(e) {
 
       // Ajout d'une bordure verte, lorsque border-sucess n'est pas present
       if (!e.classList.contains("border-success")) {
-        if(document.getElementById(`text-${e.id}`) !== null){
+        if (document.getElementById(`text-${e.id}`) !== null) {
           document.getElementById(`text-${e.id}`).remove();
         }
         e.classList.add("border-success");
@@ -138,8 +149,9 @@ function verifierValeurCarac(e) {
   }
 
   // verifie la somme des caractéristiques
-  calculerSommeDesCarac()
-
+  // Retourn true si la somme des caractéristiques fait 50
+  // Sinon false
+  return calculerSommeDesCarac();
 }
 
 // Verifie la somme des caracteristiques doit etre 50
@@ -161,90 +173,85 @@ function calculerSommeDesCarac() {
       paragraphe.setAttribute("id", `text-somme`);
       boutonSoumettre.before(paragraphe);
     }
-  } else{
+    return false;
+  } else {
     if (document.getElementById(`text-somme`) !== null) {
-        document.getElementById(`text-somme`).remove()
-      }
+      document.getElementById(`text-somme`).remove();
+    }
+    return true;
   }
 }
 
 // créer la liste des checkbox
-function creerListeOptions(){
-  let objInfoJSON = localStorage.getItem('info');
+function creerListeOptions() {
+  let objInfoJSON = localStorage.getItem("info");
   let objInfo = JSON.parse(objInfoJSON);
   let option = objInfo["typeDeVehicule"];
-  for(let index in typeVehicule[option]){
-    let id = `${option}-${index}`
-    let value = typeVehicule[option][index]
-    creerUneOption(id, value)
+  for (let index in typeVehicule[option]) {
+    let id = `${option}-${index}`;
+    let value = typeVehicule[option][index];
+    creerUneOption(id, value);
   }
 }
 
 // créer une checkbox
 function creerUneOption(id, value) {
-  let column = document.createElement('div');
-  column.setAttribute('class', 'col-12 col-md-3 mt-3 mt-md-0 mb-3');
+  let column = document.createElement("div");
+  column.setAttribute("class", "col-12 col-md-3 mt-3 mt-md-0 mb-3");
 
-  let formCheck = document.createElement('div');
-  formCheck.setAttribute('class', 'form-check');
+  let formCheck = document.createElement("div");
+  formCheck.setAttribute("class", "form-check");
 
-  let input = document.createElement('input')
-  input.setAttribute('type', 'checkbox');
-  input.setAttribute('name', id)
-  input.setAttribute('id', id)
-  input.setAttribute('value', value)
-  input.setAttribute('class', 'form-check-input')
+  let input = document.createElement("input");
+  input.setAttribute("type", "checkbox");
+  input.setAttribute("name", id);
+  input.setAttribute("id", id);
+  input.setAttribute("value", value);
+  input.setAttribute("class", "form-check-input");
 
-  let label = document.createElement('label')
-  label.setAttribute('class', 'form-check-label')
-  label.setAttribute('for', id)
-  label.setAttribute('id', `text-${id}`)
-  label.innerText = value
+  let label = document.createElement("label");
+  label.setAttribute("class", "form-check-label");
+  label.setAttribute("for", id);
+  label.setAttribute("id", `text-${id}`);
+  label.innerText = value;
 
-  formCheck.appendChild(input)
-  formCheck.appendChild(label)
-  column.appendChild(formCheck)
+  formCheck.appendChild(input);
+  formCheck.appendChild(label);
+  column.appendChild(formCheck);
 
-
-  checkboxList.append(column)
+  checkboxList.append(column);
 }
 
-
 // Verifie que 2 ou 3 checkbox sont coché au max
-function verifierCheckbox(){
-  let options = document.querySelectorAll('input[type=checkbox]');
-  let nbOptionCoche = 0; 
-  for(let checkbox of options ){
-    if(checkbox.checked){
+function verifierCheckbox() {
+  let options = document.querySelectorAll("input[type=checkbox]");
+  let nbOptionCoche = 0;
+  for (let checkbox of options) {
+    if (checkbox.checked) {
       nbOptionCoche += 1;
     }
   }
 
   // Verification du nombre d'option coché
-  if(nbOptionCoche >= OPTION_MIN && nbOptionCoche <= OPTION_MAX){
-    if (document.getElementById(`text-option`) !== null){
-      document.getElementById(`text-option`).remove()
+  if (nbOptionCoche >= OPTION_MIN && nbOptionCoche <= OPTION_MAX) {
+    if (document.getElementById(`text-option`) !== null) {
+      document.getElementById(`text-option`).remove();
     }
 
-    for(let checkbox of options ){
-      let message = document.getElementById(`text-${checkbox.id}`)
-      if(message.classList.contains('text-danger')){
-        message.classList.remove('text-danger');
+    for (let checkbox of options) {
+      let message = document.getElementById(`text-${checkbox.id}`);
+      if (message.classList.contains("text-danger")) {
+        message.classList.remove("text-danger");
       }
     }
-
-  } 
-  else{
-
-    for(let checkbox of options ){
+  } else {
+    for (let checkbox of options) {
       // Les checkbox pas coché sont en rouge
-      if(!checkbox.checked){
-        let message = document.getElementById(`text-${checkbox.id}`)
-        message.classList.add('text-danger');
-      }
+      let message = document.getElementById(`text-${checkbox.id}`);
+      message.classList.add("text-danger");
     }
 
-    if (document.getElementById(`text-option`) === null){
+    if (document.getElementById(`text-option`) === null) {
       let paragraphe = document.createElement("p");
       paragraphe.innerText = "Cocher 2 ou 3 options";
       paragraphe.classList.add("text-danger");
