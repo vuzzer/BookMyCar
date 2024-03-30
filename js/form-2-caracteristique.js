@@ -170,7 +170,9 @@ function calculerSommeDesCarac() {
 
 // créer la liste des checkbox
 function creerListeOptions(){
-  let option = "vus";
+  let objInfoJSON = localStorage.getItem('info');
+  let objInfo = JSON.parse(objInfoJSON);
+  let option = objInfo["typeDeVehicule"];
   for(let index in typeVehicule[option]){
     let id = `${option}-${index}`
     let value = typeVehicule[option][index]
