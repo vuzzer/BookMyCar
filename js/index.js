@@ -33,7 +33,8 @@ couleur.addEventListener('change', verifierCorrection)
 //--------------------------------------------LES FONCTIONS-------------------------------------------
 
 //remplirCouleur sert à ajouter les couleurs de voiture selon le type de vehicule choisi par le client
-function remplirCouleur(){
+function remplirCouleur() {
+    let couleur0 = document.createElement('option')
     let couleur1 = document.createElement('option')
     let couleur2 = document.createElement('option')
     let couleur3 = document.createElement('option')
@@ -44,11 +45,13 @@ function remplirCouleur(){
             while(couleur.options.length > 0){
                 couleur.remove(0);
             }
-           
+
+            couleur0.textContent = "Choose..."
             couleur1.textContent = "Bleu";
             couleur2.textContent = "Noir";
             couleur3.textContent = "Rouge";
 
+            couleur.appendChild(couleur0);
             couleur.appendChild(couleur1);
             couleur.appendChild(couleur2);
             couleur.appendChild(couleur3);
@@ -59,10 +62,12 @@ function remplirCouleur(){
                 couleur.remove(0);
             }
 
+            couleur0.textContent = "Choose..."
             couleur1.textContent = "Orange";
             couleur2.textContent = "Marron";
             couleur3.textContent = "Vert";
            
+            couleur.appendChild(couleur0);
             couleur.appendChild(couleur1);
             couleur.appendChild(couleur2);
             couleur.appendChild(couleur3);
@@ -73,10 +78,12 @@ function remplirCouleur(){
                 couleur.remove(0);
             }
 
+            couleur0.textContent = "Choose..."
             couleur1.textContent = "Verte";
             couleur2.textContent = "Blanche";
             couleur3.textContent = "Jaune";
            
+            couleur.appendChild(couleur0);
             couleur.appendChild(couleur1);
             couleur.appendChild(couleur2);
             couleur.appendChild(couleur3);  
@@ -118,7 +125,7 @@ function validerFormulaire(e){
        
     }
 
-    if(couleur.value === ""){
+    if(couleur.value === "" || couleur.value === "Choose..."){
         blnerreur = true;
         couleur.style.borderColor = "red"
         const paragrapheErreurCouleur = document.createElement('p');
