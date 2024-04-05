@@ -96,43 +96,56 @@ function validerFormulaire(e){
     if(prenom.value === ""){
         blnerreur = true;
         prenom.style.borderColor = "red"
-        const paragrapheErreur = document.createElement('p');
-        paragrapheErreur.style.color = "red"
-        paragrapheErreur.innerText = "Le prénom est obligatoire.";
-        let champPrenom = document.getElementById('zonePrenom');
-        champPrenom.append(paragrapheErreur);
+        if(!document.getElementById('zonePrenom').querySelector('p')){
+            const paragrapheErreur = document.createElement('p');
+            paragrapheErreur.style.color = "red"
+            paragrapheErreur.innerText = "Le prénom est obligatoire.";
+            let champPrenom = document.getElementById('zonePrenom');
+            champPrenom.append(paragrapheErreur);
+        }
+        
        
     }
     if(nom.value === ""){
         blnerreur = true;
         nom.style.borderColor = "red"
-        const paragrapheErreurNom = document.createElement('p');
-        paragrapheErreurNom.style.color = "red"
-        paragrapheErreurNom.innerText = "Le nom est obligatoire.";
-        let champNom = document.getElementById('zoneNom');
-        champNom.append(paragrapheErreurNom);
+        if(!document.getElementById('zoneNom').querySelector('p')){
+            const paragrapheErreurNom = document.createElement('p');
+            paragrapheErreurNom.style.color = "red"
+            paragrapheErreurNom.innerText = "Le nom est obligatoire.";
+            let champNom = document.getElementById('zoneNom');
+            champNom.append(paragrapheErreurNom);
      
+        }
+        
     }
 
     if(typeVehicule.value === ""){
         blnerreur = true;
         typeVehicule.style.borderColor = "red"
-        const paragrapheErreurType = document.createElement('p');
-        paragrapheErreurType.style.color = "red"
-        paragrapheErreurType.innerText = "Veuillez choisir un Type de véhicule.";
-        let champType = document.getElementById('zoneType');
-        champType.append(paragrapheErreurType);
+        if(!document.getElementById('zoneType').querySelector('p')){
+            const paragrapheErreurType = document.createElement('p');
+            paragrapheErreurType.style.color = "red"
+            paragrapheErreurType.innerText = "Veuillez choisir un Type de véhicule.";
+            let champType = document.getElementById('zoneType');
+            champType.append(paragrapheErreurType);
+        }
+        
        
     }
 
     if(couleur.value === "" || couleur.value === "Choose..."){
         blnerreur = true;
         couleur.style.borderColor = "red"
-        const paragrapheErreurCouleur = document.createElement('p');
-        paragrapheErreurCouleur.style.color = "red"
-        paragrapheErreurCouleur.innerText = "Veuillez choisir une couleur.";
-        let champCouleur = document.getElementById('zoneCouleur');
-        champCouleur.append(paragrapheErreurCouleur);
+        if(!document.getElementById('zoneCouleur').querySelector('p')){
+            const paragrapheErreurCouleur = document.createElement('p');
+            paragrapheErreurCouleur.style.color = "red"
+            paragrapheErreurCouleur.innerText = "Veuillez choisir une couleur.";
+            let champCouleur = document.getElementById('zoneCouleur');
+            champCouleur.append(paragrapheErreurCouleur);
+        }
+       
+        
       
     }
 
@@ -154,6 +167,7 @@ function verifierCorrection(e){
                 refParagrapheSuivant.remove() 
             }
         }
+       
     }
 }
 
